@@ -1,0 +1,108 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: recipe1M_test",
+            "type": "python",
+            "request": "launch",
+            "module": "torch.distributed.run",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--nproc_per_node=2",
+                "--master_port=6602",
+                "test.py",
+                "--cfg-path",
+                "lavis/projects/blip2/eval/recipe1M_opt_eval.yaml"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0, 1"
+            }
+        },
+        {
+            "name": "Python: evaluate",
+            "type": "python",
+            "request": "launch",
+            "module": "torch.distributed.run",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--nproc_per_node=4",
+                "evaluate.py",
+                "--cfg-path",
+                "/nfs_share2/code/donghee/LAVIS/lavis/projects/blip2/eval/recipe1M_opt_eval.yaml"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0, 1, 2, 3"
+            }
+        },
+        {
+            "name": "Python: recipe1Mp_stage1",
+            "type": "python",
+            "request": "launch",
+            "module": "torch.distributed.run",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--nproc_per_node=1",
+                "--master_port=6602",
+                "train.py",
+                "--cfg-path",
+                "lavis/projects/blip2/train/pretrain_stage1_recipe1Mp.yaml"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "1"
+            }
+        },
+        {
+         "name": "Python: stage2",
+            "type": "python",
+            "request": "launch",
+            "module": "torch.distributed.run",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--nproc_per_node=1",
+                "--master_port=6602",
+                "train.py",
+                "--cfg-path",
+                "lavis/projects/blip2/train/pretrain_stage2_recipe1M.yaml"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "3",
+                "CUDA_LAUNCH_BLOCKING": "1"
+            }
+        },
+        {
+            "name": "Python: stage1",
+            "type": "python",
+            "request": "launch",
+            "module": "torch.distributed.run",
+            // "program": "train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--nproc_per_node=2",
+                "--master_port=6602",
+                "train.py",
+                "--cfg-path",
+                "lavis/projects/blip2/train/pretrain_stage1_recipe1M.yaml"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "2,3",
+                "CUDA_LAUNCH_BLOCKING": "1",
+            }
+        }
+    ]
+}

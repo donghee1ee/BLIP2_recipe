@@ -1,0 +1,40 @@
+<ingredient prediction>
+
+- from scratch: Pretrain_stage2/20230515184, 
+- finetune: Pretrain_stage2/20230516075
+
+- 1M+ finetune: Pretrain_stage1/2023051743 --> not working (?)
+
+(from scratch)
+- instruction + prediction: Pretrain_stage1/20230517202, Pretrain_stage2/20230518032
+
+- epoch 30 (from scratch): 
+    Pretrain_stage1/20230518080, Pretrain_stage2/20230519073/checkpoint_9.pth (epoch10)
+
+
+===== finetune만 work 하는 듯
+
+- epoch 30 (fintuned) : 
+    Pretrain_stage1/20230518211, Pretrain_stage2/20230520080/checkpoint_19.pth (epoch20)
+    - result: iou - 32.745, f1 - 46.18
+
+- finetuned (1 stage epoch 30 - 2 stage epoch 40)
+    Pretrain_stage1/20230518211, Pretrain_stage2/20230521074/checkpoint_19.pth (epoch 40)
+    - result: iou- 32.5, f1 - 45.83 (overfitting 인듯)
+
+<instrcution>
+
+- inst_only: 
+    stage 1: /nfs_share2/code/donghee/LAVIS/lavis/output/BLIP2/Pretrain_stage1/20230521214/checkpoint_22.pth, 
+            /nfs_share2/code/donghee/LAVIS/lavis/output/BLIP2/Pretrain_stage1/20230521214/checkpoint_8.pth (eval 제일 작은..)
+    stage 2: /nfs_share2/code/donghee/LAVIS/lavis/output/BLIP2/Pretrain_stage2/20230524000/checkpoint_9.pth
+            /nfs_share2/code/donghee/LAVIS/lavis/output/BLIP2/Pretrain_stage2/20230524000/checkpoint_9.pth
+    
+
+- inst_ingr:
+    stage 1: Pretrain_stage1/20230522044/checkpoint_8.pth
+    stage 2: /nfs_share2/code/donghee/LAVIS/lavis/output/BLIP2/Pretrain_stage2/20230523235/checkpoint_0.pth
+
+- ingr only:
+    stage 1: /nfs_share2/code/donghee/LAVIS/lavis/output/BLIP2/Pretrain_stage1/20230524083/checkpoint_13.pth
+    stage 2: /nfs_share2/code/donghee/LAVIS/lavis/output/BLIP2/Pretrain_stage2/20230525191/checkpoint_10.pth (stage 1에서는 ingr loss 사용, stage 2에서는 ingr loss  사용안함)
