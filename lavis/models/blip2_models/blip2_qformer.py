@@ -259,6 +259,7 @@ class Blip2Qformer(Blip2Base):
 
         loss_lm = lm_output.loss
 
+    ### add ingredient loss
         if self.ingr_loss:
             # image_feats_all = concat_all_gather(
             #     image_feats
